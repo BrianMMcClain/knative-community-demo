@@ -29,6 +29,7 @@ def sendEvent(comment, owner, repo, issue, sink)
     @logger.info("Sending info to #{sink}")
     data = { 
         message: comment["body"],
+        id: comment["id"],
         user: comment["user"]["login"],
         timestamp: comment["created_at"],
         url: comment["html_url"]
