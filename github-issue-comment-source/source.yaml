@@ -1,0 +1,26 @@
+apiVersion: sources.knative.dev/v1
+kind: ContainerSource
+metadata:
+  name: test-heartbeats
+spec:
+  template:
+    spec:
+      containers:
+        - image: brianmmcclain/github-issue-comment-source
+          name: github-issue-comment-source
+          args:
+            - --owner=[REPO OWNER]
+            - --repo=[REPO NAME]
+            - --issue=[ISSUE NUMBER]
+            - --interval=90
+            - --fromBeginning
+          env:
+            - name: POD_NAME
+              value: "github-issue-comment-source"
+            - name: POD_NAMESPACE
+              value: "event-test"
+  sink:
+    ref:
+      apiVersion: serving.knative.dev/v1
+      kind: Service
+      name: event-display
