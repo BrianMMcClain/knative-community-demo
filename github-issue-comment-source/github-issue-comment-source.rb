@@ -27,7 +27,12 @@ end
 # Sends a CloudEvent-formatted HTTP POST to the provided sink
 def sendEvent(comment, owner, repo, issue, sink)
     @logger.info("Sending info to #{sink}")
-    data = { message: comment["body"]  }
+    data = { 
+        message: comment["body"],
+        user: comment["user"]["login"],
+        timestamp: comment["created_at"],
+        url: comment["html_url"]
+    }
     event = CloudEvents::Event.create spec_version: "1.0",
                                     id:           "#{comment['id']}",
                                     source:       "/#{owner}/#{repo}/#{issue}",
