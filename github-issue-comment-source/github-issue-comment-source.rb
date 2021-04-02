@@ -84,9 +84,6 @@ EOS
     opt :interval, "Poll Frequency", 
         :default => 60,
         :type => :int
-    opt :sink, "Sink to send events", 
-        :default => "http://localhost:8080",
-        :type => :string
     opt :owner, "Repo owner",
         :required => true,
         :type => :string
