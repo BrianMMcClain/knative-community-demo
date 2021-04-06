@@ -32,7 +32,9 @@ def sendEvent(comment, owner, repo, issue, sink)
         id: comment["id"],
         user: comment["user"]["login"],
         timestamp: comment["created_at"],
-        url: comment["html_url"]
+        url: comment["html_url"],
+        owner: owner,
+        repo: repo
     }
     event = CloudEvents::Event.create spec_version: "1.0",
                                     id:           "#{comment['id']}",
@@ -63,7 +65,7 @@ def pollComments(owner, repo, issue, sink, lastID)
     comments.each do |c|
         if c["id"] > newLastID
             sendEvent(c, owner, repo, issue, sink)
-            newLastID = c["id"]
+            newLastID = c["id"].to_i
         end
     end
 
