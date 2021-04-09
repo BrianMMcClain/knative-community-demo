@@ -1,7 +1,7 @@
 apiVersion: sources.knative.dev/v1
 kind: ContainerSource
 metadata:
-  name: test-heartbeats
+  name: github-issue-comment-source
 spec:
   template:
     spec:
