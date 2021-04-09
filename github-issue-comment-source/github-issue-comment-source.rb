@@ -34,7 +34,8 @@ def sendEvent(comment, owner, repo, issue, sink)
         timestamp: comment["created_at"],
         url: comment["html_url"],
         owner: owner,
-        repo: repo
+        repo: repo,
+        issue: issue
     }
     event = CloudEvents::Event.create spec_version: "1.0",
                                     id:           "#{comment['id']}",
